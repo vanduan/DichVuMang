@@ -111,6 +111,7 @@ class Ui_MainWindow(object):
         state = self.check_url(url)
         if state and (str(player_vlc.get_state()) == 'State.NothingSpecial' or str(player_vlc.get_state()) == 'State.Stopped'):
             player_vlc.set_mrl(url)
+            player_vlc.play()
             #if value_play==-1:
             #    # Pop up Info, Could'n play
             #    msg = QtGui.QMessageBox()
