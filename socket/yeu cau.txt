@@ -1,0 +1,10 @@
+           Client - Server TCP:
+========================================
+Server:                |    Client:
+ - Socket              |    - Socket
+ - Bind                |
+ - Listen: min,max:0,5 |
+                       |    - Connect
+ - Accept              |
+
+ #use_cmd python.server.py <port>
