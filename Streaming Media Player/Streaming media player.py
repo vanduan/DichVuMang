@@ -9,6 +9,10 @@ import re
 from PyQt4 import QtCore, QtGui
 import vlc
 import sys
+import thread
+import time
+
+
 
 ins_vlc = vlc.Instance('--verbose 2'.split())
 player_vlc = ins_vlc.media_player_new()
@@ -106,26 +110,14 @@ class Ui_MainWindow(object):
 
     # Play media
     def play_video(self):
-
         url = str(self.lineRUL.text())
         state = self.check_url(url)
         if state and (str(player_vlc.get_state()) == 'State.NothingSpecial' or str(player_vlc.get_state()) == 'State.Stopped'):
             player_vlc.set_mrl(url)
             player_vlc.play()
-            #if value_play==-1:
-            #    # Pop up Info, Could'n play
-            #    msg = QtGui.QMessageBox()
-            #    msg.setIcon(QtGui.QMessageBox.Warning)
-            #    msg.setText('''Couldn't Play it ''' + url + '!!!')
-            #    msg.setWindowTitle('Error!')
-            #    msg.setStandardButtons(QtGui.QMessageBox.Ok | QtGui.QMessageBox.Close)
-            #    msg.show()
-            #    msg.exec_()
         # Unpause
-        elif state and str(player_vlc.get_state()) == 'State.Paused':
+        elif str(player_vlc.get_state()) == 'State.Paused':
             player_vlc.set_pause(0)
-            print 'value_play 2', player_vlc.get_state()
-            self.isPause = False
 
 
     # Check URL
@@ -157,7 +149,7 @@ class Ui_MainWindow(object):
             msg.setIcon(QtGui.QMessageBox.Warning)
             msg.setText('URL not true !!!')
             msg.setWindowTitle('Error!')
-            msg.setDetailedText('URL like is: http://vanduan.com/path')
+            msg.setDetailedText('URL like is: http://abc.com/path')
             msg.setStandardButtons(QtGui.QMessageBox.Ok | QtGui.QMessageBox.Close)
             msg.show()
             msg.exec_()
@@ -166,16 +158,15 @@ class Ui_MainWindow(object):
     # Stop play media
     def stop_media(self):
         player_vlc.stop()
-        print 'value_play 3', player_vlc.get_state()
 
     # Pause play media
     def pause_media(self):
         player_vlc.pause()
-        print 'value_play 4', player_vlc.get_state()
-        self.isPause = True
+
 
 
 if __name__ == "__main__":
+
     app = QtGui.QApplication(sys.argv)
     MainWindow = QtGui.QMainWindow()
     ui = Ui_MainWindow()
