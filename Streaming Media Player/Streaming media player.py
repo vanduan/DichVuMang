@@ -114,7 +114,7 @@ class Ui_MainWindow(object):
 
     # Play media
     def play_video(self):
-        url = str(self.lineURL.text())
+        url = str(self.lineURL.text()).replace(' ','')
         state = self.check_url(url)
         if state and (str(player_vlc.get_state()) == 'State.NothingSpecial' or str(player_vlc.get_state()) == 'State.Stopped'):
             player_vlc.set_mrl(url)
